@@ -121,11 +121,13 @@ div.dataTables_wrapper div.dataTables_filter input {
     });
 
     $(document).on('click', '#cancel', function(){
+        event.preventDefault();
         $('#kode').val('');
         $('#kapasitas').val('');
     });
 
     $(document).on('click', '#addData', function() {
+        event.preventDefault();
         $.ajax({
             type: 'POST',
             url: '{{ route('admin.classroom.create') }}',

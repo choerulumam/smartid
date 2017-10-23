@@ -22,9 +22,9 @@
                 </ul>
             </li>
             <li class="{{ Route::currentRouteNamed('admin.classroom') ? 'active' : '' }}"><a href="{{ route('admin.classroom') }}"><i class="fa fa-group"></i><span>Classroom</span></a></li>
-            <li class="treeview"><a href="#"><i class="fa fa-university"></i><span>Course</span><i class="fa fa-angle-right"></i></a>
+            <li class="treeview {{ Route::currentRouteNamed('admin.course.dosen') ? 'active' : '' }}"><a href="#"><i class="fa fa-university"></i><span>Course</span><i class="fa fa-angle-right"></i></a>
                 <ul class="treeview-menu">
-                    <li class=""><a href="#"><i class="fa fa-circle-o"></i> Lectures Course</a></li>
+                    <li class="{{ Route::currentRouteNamed('admin.course.dosen') ? 'active' : '' }}"><a href="{{ route('admin.course.dosen') }}"><i class="fa fa-circle-o"></i> Lectures Course</a></li>
                     <li class=""><a href="#"><i class="fa fa-circle-o"></i> Students Course</a></li>
                 </ul>
             </li>

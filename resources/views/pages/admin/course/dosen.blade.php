@@ -1,130 +1,107 @@
 @extends('layouts.master')
-@section('title', 'Management Mahasiswa')
+@section('title', 'Classroom')
 @section('content')
+<style>
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: 80%;
+}
+</style>
 <div class="content-wrapper">
     <div class="page-title">
         <div>
-            <h1><i class="fa fa-user-circle"></i> Management</h1>
-            <p>Mahasiswa</p>
+            <h1><i class="fa fa-user-circle"></i> Course</h1>
+            <p>Lectures Course</p>
         </div>
         <div>
             <ul class="breadcrumb">
                 <li><i class="fa fa-home fa-lg"></i></li>
-                <li>Management</li>
-                <li><a href="{{ route('admin.manage.mahasiswa') }}">mahasiswa</a></li>
+                <li>Admin</li>
+                {{-- <li><a href="{{ route('admin.course') }}">Course</a></li> --}}
+                <li><a href="{{ route('admin.course.dosen') }}">Lectures</a></li>
             </ul>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card">
-                <button style="margin-bottom: 10px" class="btn btn-primary add-modal"><i class="fa fa-plus"></i><strong> ADD NEW DATA</strong></button>
-                <table id="table" class="table table-responsive">
-                    <thead>
-                        <th>ID</th>
-                        <th>NIM</th>
-                        <th>NAME</th>
-                        <th>KELAS</th>
-                        <th>MAC ADDRESS</th>
-                        <th>EMAIL</th>
-                        <th>ACTIONS</th>
-                    </thead>
-                    <tbody>
-                        @foreach($data as $user)
-                        <tr class="user{{ $user->id }}">
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->nim }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->kelas}}</td>
-                            <td>{{ $user->mac }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                <button style="margin-right: 2px" class="edit-modal btn btn-info btn-sm" data-info="{{$user->id}},{{$user->nim}},{{$user->name}},{{ $user->kelas}},{{$user->email}},{{$user->mac}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                <button class="delete-modal btn btn-danger btn-sm" data-info="{{$user->id}},{{$user->nim}},{{$user->name}},{{ $user->kelas}},{{$user->email}},{{$user->mac}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="card-body">
+                    <div class="card-title">
+                        <h4>Course Views</h4>
+                    </div>
+                    <table id="table" class="table table-stripped">
+                        <thead>
+                            <th>ID</th>
+                            <th>CODE</th>
+                            <th>NAME</th>
+                            <th>LECTURES</th>
+                            <th>ACTION</th>
+                        </thead>
+                        <tbody>
+                            @foreach($matakuliah as $course)
+                            <tr class="user{{ $course->id }}">
+                                <td>{{ $course->id }}</td>
+                                <td>{{ $course->kode }}</td>
+                                <td>{{ $course->name }}</td>
+                                <td>{{ $course->kode_dosen }}</td>
+                                <td>
+                                    <button style="margin-right: 2px" class="edit btn btn-info btn-sm" data-info="{{$course->id}},{{$course->kode}},{{$course->name}},{{$course->kode_dosen}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    <button class="delete btn btn-danger btn-sm" data-info="{{$course->id}},{{$course->kode}},{{$course->name}},{{$course->name}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <p class="card-text">This table showing current course data</p>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"></h4>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form id="courseForm" class="form-horizontal">
+                        {{ csrf_field() }}
+                        <fieldset>
+                            <legend>Add New Course</legend>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="ID">ID</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" value="{{$matakuliah->count()+1}}" id="ID" type="text" placeholder="ID" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="kode">Kode Matakuliah</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" id="kode" type="text" placeholder="Kode Matakuliah">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="name">Nama Matakuliah</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" id="name" type="text" placeholder="Nama Matakuliah">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="kdosen">Kode Dosen</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" id="kdosen">
+                                        @foreach($dosen as $kode)
+                                        <option>{{ $kode->kode_dosen }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-9 col-lg-offset-3">
+                                    <button class="btn btn-default" id="cancel">Cancel</button>
+                                    <button class="btn btn-primary" id="addData">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
-            <div class="modal-body">
-                <form class="form-horizontal" role="form">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="Mid">ID</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Mid" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="Mnim">NIM</label>
-                        <div class="col-sm-9">
-                            <input type="name" class="form-control" id="Mnim" required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="Mname">Name</label>
-                        <div class="col-sm-9">
-                            <input type="name" class="form-control" id="Mname">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="Mkelas">kelas</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="Mkelas">
-                                @foreach($kelas as $mhs_kelas)
-                                    <option>{{ $mhs_kelas->kode }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="Mmac">Mac Address</label>
-                        <div class="col-sm-9">
-                            <input type="name" class="form-control" id="Mmac">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="Memail">Email</label>
-                        <div class="col-sm-9">
-                            <input type="email" class="form-control" id="Memail">
-                        </div>
-                    </div>
-                    <div id="Mpassword" class="form-group hidden">
-                        <label class="control-label col-sm-3" for="Mpass">Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="Mpass" required="true">
-                        </div>
-                    </div>
-                    {{-- <div id="MpasswordValidate" class="form-group hidden">
-                        <label class="control-label col-sm-3" for="MpassV">Password Confirm</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="MpassV" required="true">
-                        </div>
-                    </div> --}}
-                </form>
-                <div class="deleteContent"> Are you Sure you want to delete <span class="dname"></span> ? <span class="hidden did"></span>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn actionBtn" data-dismiss="modal">
-                        <span id="footer_action_button"> </span>
-                    </button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
-            </div>  
         </div>
     </div>
 </div>
@@ -136,154 +113,79 @@
 
 <script>
     $(document).ready(function() {
-        $('#table').DataTable();
+        $('#table').DataTable({
+            responsive: true
+        });
     });
 
-    $(document).on('click', '.add-modal', function() {
-        $('#footer_action_button').text(' submit');
-        $('.actionBtn').addClass('btn-success');
-        $('.actionBtn').removeClass('btn-danger');
-        $('.actionBtn').removeClass('delete');
-        $('.actionBtn').removeClass('edit');
-        $('.actionBtn').addClass('add');
-        $('.modal-title').text('Add User');
-        $('#Mnim').val('');
-        $('#Mname').val('');
-        $('#Memail').val('');
-        $('#Mmac').val('');
-        $('#Mpassword').removeClass('hidden');
-        // $('#MpasswordValidate').removeClass('hidden');
-        $('.deleteContent').hide();
-        $('.form-horizontal').show();
-        $('#Mid').val({{ $data->count() + 1 }});
-        $('#myModal').modal('show');
+    $(document).on("click", "#cancel", function(){
+        event.preventDefault();
+        $("#name").val('');
+        $("#kode").val('');
     });
 
-    $('.modal-footer').on('click', '.add', function() {
+    $(document).on("click", "#addData", function() {
+        event.preventDefault();
         $.ajax({
-            type: 'POST',
-            url: '{{ route('admin.manage.mahasiswa.create') }}',
+            type: "POST",
+            url: "{{ route('admin.course.dosen.create') }}",
             data: {
-                '_token': $('input[name=_token]').val(),
-                'id': $("#Mid").val(),
-                'nim': $('#Mnim').val(),
-                'name': $('#Mname').val(),
-                'email': $('#Memail').val(),
-                'kelas': $('#Mkelas').val(),
-                'mac': $('#Mmac').val(),
-                'password' : $('#Mpass').val(),
+                "_token": $("input[name=_token]").val(),
+                "id": $("#ID").val(),
+                "kode": $("#kode").val(),
+                "nama_matakuliah": $("#name").val(),
+                "kdosen": $("#kdosen").val()
             },
             success: function(data) {
                 $(document).ajaxSuccess(function(){
                     swal({
                         title: "Success",
-                        text: "New User Have Been Created updated",
+                        text: "Your record have been added",
                         type: "success",
-                        timer: 1000
-                    },
-                        function(){
-                            location.reload();
-                        }
-                    );     
-                });
-                $('#table > tbody:last-child').append("<tr class='user" + data.id + "'><td>" + data.id + "</td><td>" + data.nim + "</td><td>" + data.name + "</td><td>" + data.kelas + "</td><td>" + data.mac + "</td><td>"+ data.email +"<button class='edit-modal btn btn-info' data-info='" + data.id+","+data.nim+","+data.name+","+data.kelas+","+data.mac+", "+data.email+"'><span style='margin-right: 2px' class='fa fa-pencil-square-o'></span></button> <button class='delete-modal btn btn-danger' data-info='" + data.id+","+data.nim+","+data.name+","+data.kelas+","+data.mac+", "+data.email+"'><span class='fa fa-trash-o'></span></button></td></tr>");
-            }
-        });
-    });
-
-    $(document).on('click', '.edit-modal', function() {
-        $('#footer_action_button').text(" Update");
-        $('.actionBtn').addClass('btn-success');
-        $('.actionBtn').removeClass('btn-danger');
-        $('.actionBtn').removeClass('delete');
-        $('.actionBtn').removeClass('add');
-        $('.actionBtn').addClass('edit');
-        $('#Mpassword').addClass('hidden');
-        $('.modal-title').text('Edit');
-        $('.deleteContent').hide();
-        $('.form-horizontal').show();
-        var stuff = $(this).data('info').split(',');
-        fillmodalData(stuff)
-        $('#myModal').modal('show');
-    });
-
-    function fillmodalData(details){
-        $('#Mid').val(details[0]);
-        $('#Mnim').val(details[1]);
-        $('#Mname').val(details[2]);
-        $('#Mkelas').val(details[3]),
-        $('#Memail').val(details[4]);
-        $('#Mmac').val(details[5]);
-    }
-
-    $('.modal-footer').on('click', '.edit', function() {
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('admin.manage.mahasiswa.update') }}',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'id': $("#Mid").val(),
-                'nim': $('#Mnim').val(),
-                'name': $('#Mname').val(),
-                'kelas': $('#Mkelas').val(),
-                'email': $('#Memail').val(),
-                'mac': $('#Mmac').val(),
-            },
-            success: function(data) {
-                $(document).ajaxSuccess(function(){
-                    swal({
-                        title: "Update Success",
-                        text: "Your record have been updated",
-                        type: "success",
-                        timer: 1000
+                        timer: 2000
                     }, 
                         function(){
                             location.reload(); 
                         }
-                    );     
-                });
-                $('.user' + data.id).replaceWith("<tr class='user" + data.id + "'><td>" + data.id + "</td><td>" + data.nim + "</td><td>" + data.name + "</td><td>" + data.kelas + "</td><td>" + data.mac + "</td><td>" + data.email + "<button style='margin-right: 2px' class='edit-modal btn btn-info' data-info='" + data.id+","+data.nim+","+data.name+","+data.kelas+","+data.mac+","+data.email+"'><span class='fa fa-pencil-square-o'></span></button><button class='delete-modal btn btn-danger' data-info='" + data.id+","+data.nim+","+data.name+","+data.kelas+","+data.mac+","+data.email+"'><span class='fa fa-trash-o'></span></button></td></tr>");
+                    )     
+                })
             }
-        });
+        })
     });
 
-     $(document).on('click', '.delete-modal', function() {
-        $('#footer_action_button').text(" Delete");
-        $('.actionBtn').removeClass('btn-success');
-        $('.actionBtn').addClass('btn-danger');
-        $('.actionBtn').removeClass('edit');
-        $('.actionBtn').addClass('delete');
-        $('.modal-title').text('Delete');
-        $('.deleteContent').show();
-        $('.form-horizontal').hide();
+    $(document).on("click", ".delete", function() {
         var stuff = $(this).data('info').split(',');
-        $('.did').text(stuff[0]);
-        $('.dname').html(stuff[2]);
-        $('#myModal').modal('show');
-    });
-    
-    $('.modal-footer').on('click', '.delete', function() {
-        $.ajax({
-            type: 'post',
-            url: '{{ route('admin.manage.mahasiswa.delete') }}',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'id': $('.did').text()
-            },
-            success: function(data) {
-                 $(document).ajaxSuccess(function(){
-                    swal({
-                        title: "Success",
-                        text: "Your record have been deleted",
-                        type: "success",
-                        timer: 1000
-                    }, 
-                        function(){
-                            location.reload(); 
-                        }
-                    );     
-                });
-            }
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.course.dosen.delete') }}",
+                data: {
+                    "_token": $("input[name=_token]").val(),
+                    "id": stuff[0]
+                },
+                success: function(data) {
+                    $(document).ajaxSuccess(function(){
+                        swal({
+                            title: "Success",
+                            text: "Your record have been deleted",
+                            type: "success",
+                            timer: 2000
+                        }, 
+                            function(){
+                                location.reload(); 
+                            }
+                        )     
+                    })
+                }
+            });
         });
     });
 
@@ -291,12 +193,8 @@
         swal({
             title: "Error",
             text: "Your record haven't been updated",
-            type: "warning",
-            timer: 1000
+            type: "warning"
         });     
     });
 </script>
-
-
-
 @endsection

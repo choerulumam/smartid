@@ -45,6 +45,14 @@ Route::prefix('admin')->group(function() {
 		Route::get('/', 'Admin\ClassroomController@showClassroom')->name('admin.classroom');
 		Route::post('/create', 'Admin\ClassroomController@createClassroom')->name('admin.classroom.create');
 	});
+	Route::prefix('/course')->group(function() {
+		Route::prefix('/dosen')->group(function() {
+			Route::get('/', 'Admin\CourseController@showCourseDosen')->name('admin.course.dosen');
+			Route::post('/create', 'Admin\CourseController@createCourseDosen')->name('admin.course.dosen.create');
+			Route::post('/delete', 'Admin\CourseController@deleteCourseDosen')->name('admin.course.dosen.delete');
+		});
+
+	});
 });
 
 Route::prefix('dosen')->group(function() {
