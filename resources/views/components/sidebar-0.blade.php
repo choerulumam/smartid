@@ -28,7 +28,7 @@
                     <li class=""><a href="#"><i class="fa fa-circle-o"></i> Students Course</a></li>
                 </ul>
             </li>
-            <li><a href="#"><i class="fa fa-calendar"></i><span>Schedules</span></a></li>
+            <li class="{{ Route::currentRouteNamed('admin.schedule') ? 'active' : '' }}"><a href="{{ route('admin.schedule') }}"><i class="fa fa-calendar"></i><span>Schedules</span></a></li>
             <li><a href="#"><i class="fa fa-upload"></i><span>Import Data</span></a></li>
             <li><a href="#"><i class="fa fa-download"></i><span>Export Data</span></a></li>
         </ul>

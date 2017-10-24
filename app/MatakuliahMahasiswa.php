@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jadwal extends Model
+class MatakuliahMahasiswa extends Model
 {
-    protected $table = 'tbl_jadwal';
-    
+    protected $table = 'tbl_matakuliah_mahasiswa';
     public $timestamps = false;
     
     protected $fillable = [
-        'hari', 'matakuliah', 'ruangan','jam_masuk', 'jam_keluar'
+        'nim', 'matakuliah', 'jadwal'
     ];
+    
 }

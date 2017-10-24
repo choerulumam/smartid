@@ -44,14 +44,22 @@ Route::prefix('admin')->group(function() {
 	Route::prefix('/classroom')->group(function() {
 		Route::get('/', 'Admin\ClassroomController@showClassroom')->name('admin.classroom');
 		Route::post('/create', 'Admin\ClassroomController@createClassroom')->name('admin.classroom.create');
+		Route::post('/update', 'Admin\ClassroomController@updateClassroom')->name('admin.classroom.update');
+		Route::post('/delete', 'Admin\ClassroomController@deleteClassroom')->name('admin.classroom.delete');
 	});
 	Route::prefix('/course')->group(function() {
 		Route::prefix('/dosen')->group(function() {
 			Route::get('/', 'Admin\CourseController@showCourseDosen')->name('admin.course.dosen');
 			Route::post('/create', 'Admin\CourseController@createCourseDosen')->name('admin.course.dosen.create');
 			Route::post('/delete', 'Admin\CourseController@deleteCourseDosen')->name('admin.course.dosen.delete');
+			Route::post('/update', 'Admin\CourseController@updateCourseDosen')->name('admin.course.dosen.update');
 		});
-
+	});
+	Route::prefix('/schedule')->group(function(){
+		Route::get('/', 'Admin\ScheduleController@showSchedule')->name('admin.schedule');
+		Route::post('/create', 'Admin\ScheduleController@createSchedule')->name('admin.schedule.create');
+		Route::post('/update', 'Admin\ScheduleController@updateSchedule')->name('admin.schedule.update');
+		Route::post('/delete', 'Admin\ScheduleController@deleteSchedule')->name('admin.schedule.delete');
 	});
 });
 

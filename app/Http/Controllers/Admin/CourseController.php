@@ -44,5 +44,15 @@ class CourseController extends Controller
         return response()->json($data);
     }
 
+    public function updateCourseDosen(Request $request)
+    {
+        $data = Matakuliah::find($request->id);
+        $data->kode = $request->kode;
+        $data->name = $request->name;
+        $data->kode_dosen = $request->kode_dosen;
+        $data->save();
+        return response()->json($data);
+    }
+
     
 }

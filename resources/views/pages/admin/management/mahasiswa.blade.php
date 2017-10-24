@@ -18,7 +18,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <button style="margin-bottom: 10px" class="btn btn-primary add-modal"><i class="fa fa-plus"></i><strong> ADD NEW DATA</strong></button>
+                <div class="card-title-w-btn">
+                    <h3 class="title">Mahasiswa Overviews</h3>
+                    <p>
+                        <button class="btn btn-primary add-modal"><i class="fa fa-plus"></i></button>
+                        <button class="btn btn-primary export-modal"><i class="fa fa-download"></i></button>
+                        <button class="btn btn-primary export-modal"><i class="fa fa-download"></i></button>
+                    </p>
+                </div>
                 <table id="table" class="table table-responsive">
                     <thead>
                         <th>ID</th>

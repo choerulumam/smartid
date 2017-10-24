@@ -28,4 +28,8 @@ class Mahasiswa extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+     public function matakuliahDosen() {
+        return $this->hasMany('App\Dosen', 'kode_dosen', 'kode_dosen');
+    }
 }

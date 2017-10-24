@@ -28,4 +28,19 @@ class ClassroomController extends Controller
     	return response()->json($data);
     }
 
+    public function updateClassroom(Request $request)
+    {
+        $data = Ruangan::find($request->id);
+        $data->kode = $request->kode;
+        $data->kapasitas = $request->kapasitas;
+        $data->save();
+        return response()->json($data);
+    }
+
+    public function deleteClassroom(Request $request)
+    {
+        $data = Ruangan::find($request->id)->delete();
+        return response()->json($data);
+    }
+
 }

@@ -1,4 +1,4 @@
-<header class="main-header hidden-print"><a class="logo" href="#"><strong>SMART</strong> ID <i class="fa fa-cogs" aria-hidden="true"></i></a>
+<header class="main-header hidden-print"><a class="logo" href="#">Smart-id Panels</a>
     <nav class="navbar navbar-static-top">
         <a class="sidebar-toggle" href="#" data-toggle="offcanvas"></a>
         <div class="navbar-custom-menu">

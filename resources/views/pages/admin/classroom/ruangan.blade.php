@@ -93,6 +93,48 @@ div.dataTables_wrapper div.dataTables_filter input {
     </div>
 </div>
 
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="CLid">ID</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="CLid" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="CLkode">kode</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="CLkode" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="CLKapasitas">Kapasitas</label>
+                        <div class="col-sm-9">
+                            <input type="name" class="form-control" id="CLKapasitas">
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn actionBtn" data-dismiss="modal">
+                        <span id="footer_action_button"> </span>
+                    </button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+
 <script src="{{ asset('js/plugins/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/plugins/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/plugins/jquery.validate.js') }}"></script>
@@ -125,6 +167,87 @@ div.dataTables_wrapper div.dataTables_filter input {
         $('#kode').val('');
         $('#kapasitas').val('');
     });
+
+    $(document).on('click', '.edit-modal', function() {
+        $('#footer_action_button').text(" Update");
+        $('.actionBtn').addClass('btn-success');
+        $('.actionBtn').addClass('edit');
+        $('.modal-title').text('Edit');
+        $('.form-horizontal').show();
+        var stuff = $(this).data('info').split(',');
+        fillmodalData(stuff)
+        $('#myModal').modal('show');
+    });
+
+    function fillmodalData(details){
+        $('#CLid').val(details[0]);
+        $('#CLkode').val(details[1]);
+        $('#CLKapasitas').val(details[2]);
+    };
+
+     $('.modal-footer').on('click', '.edit', function() {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.classroom.update') }}',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $("#CLid").val(),
+                'kode': $('#CLkode').val(),
+                'kapasitas': $('#CLKapasitas').val()
+            },
+            success: function(data) {
+                $(document).ajaxSuccess(function(){
+                    swal({
+                        title: "Success",
+                        text: "Your record have been updated",
+                        type: "success",
+                        timer: 1000
+                    }, 
+                        function(){
+                            location.reload(); 
+                        }
+                    );     
+                });
+            }
+        });
+    });
+
+    $(document).on("click", ".delete-modal", function() {
+        var stuff = $(this).data('info').split(',');
+        swal({
+            title: "Delete classroom " + stuff[1] + " ?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.classroom.delete') }}",
+                data: {
+                    "_token": $("input[name=_token]").val(),
+                    "id": stuff[0]
+                },
+                success: function(data) {
+                    $(document).ajaxSuccess(function(){
+                        swal({
+                            title: "Success",
+                            text: "Your record have been deleted",
+                            type: "success",
+                            timer: 1000
+                        }, 
+                            function(){
+                                location.reload(); 
+                            }
+                        )     
+                    })
+                }
+            });
+        });
+    });
+
 
     $(document).on('click', '#addData', function() {
         event.preventDefault();
