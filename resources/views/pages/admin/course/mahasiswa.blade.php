@@ -12,14 +12,14 @@ div.dataTables_wrapper div.dataTables_filter input {
     <div class="page-title">
         <div>
             <h1><i class="fa fa-user-circle"></i> Course</h1>
-            <p>Lectures Course</p>
+            <p>Students Course</p>
         </div>
         <div>
             <ul class="breadcrumb">
                 <li><i class="fa fa-home fa-lg"></i></li>
                 <li>Admin</li>
                 {{-- <li><a href="{{ route('admin.course') }}">Course</a></li> --}}
-                <li><a href="{{ route('admin.course.dosen') }}">Lectures</a></li>
+                <li><a href="{{ route('admin.course.mahasiswa') }}">Students</a></li>
             </ul>
         </div>
     </div>
@@ -39,7 +39,7 @@ div.dataTables_wrapper div.dataTables_filter input {
                             <th>ACTION</th>
                         </thead>
                         <tbody>
-                            @foreach($matakuliah as $course)
+                            @foreach($data as $course)
                             <tr class="user{{ $course->id }}">
                                 <td>{{ $course->id }}</td>
                                 <td>{{ $course->kode }}</td>
