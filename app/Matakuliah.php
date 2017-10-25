@@ -16,5 +16,9 @@ class Matakuliah extends Model
     public function matakuliahDosen() {
     	return $this->hasMany('App\Dosen', 'kode_dosen', 'kode_dosen');
     }
+
+    public function mahasiswa() {
+    	return $this->hasMany('App\MatakuliahMahasiswa', 'kode', 'kode');
+    }
     
 }

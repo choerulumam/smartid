@@ -54,6 +54,9 @@ Route::prefix('admin')->group(function() {
 			Route::post('/delete', 'Admin\CourseController@deleteCourseDosen')->name('admin.course.dosen.delete');
 			Route::post('/update', 'Admin\CourseController@updateCourseDosen')->name('admin.course.dosen.update');
 		});
+		Route::prefix('/mahasiswa')->group(function() {
+			Route::get('/', 'Admin\CourseController@showCourseMahasiswa')->name('admin.course.mahasiswa');
+		});
 	});
 	Route::prefix('/schedule')->group(function(){
 		Route::get('/', 'Admin\ScheduleController@showSchedule')->name('admin.schedule');

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Matakuliah;
 use App\Dosen;
 use App\Mahasiswa;
+use App\MatakuliahMahasiswa;
 
 class CourseController extends Controller
 {
@@ -16,12 +17,15 @@ class CourseController extends Controller
         $this->middleware('auth:admin');
     }
 
+
+    // Mahasiswa 
     public function showCourseMahasiswa(){
-    	$matakuliah = Matakuliah::get();
-    	$mahasiswa = Mahasiswa::get(); 
-    	return view('pages.admin.course.mahasiswa');
+    	$data = MatakuliahMahasiswa::with(['matakuliah','mahasiswa','jadwal'])->get(); 
+    	return $data->find(2);
     }
 
+
+    // Dosen
     public function showCourseDosen(){
     	$matakuliah = Matakuliah::get();
     	$dosen = Dosen::get();
