@@ -11,7 +11,11 @@ div.dataTables_wrapper div.dataTables_filter input {
 <div class="content-wrapper">
     <div class="page-title">
         <div>
+<<<<<<< HEAD
             <h1><i class="fa fa-university"></i> Course</h1>
+=======
+            <h1><i class="fa fa-user-circle"></i> Course</h1>
+>>>>>>> 86d17942bc7bf8d0b68512c3b37e3026d995777a
             <p>Students Course</p>
         </div>
         <div>
