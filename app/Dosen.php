@@ -32,4 +32,5 @@ class Dosen extends Authenticatable
     public function matakuliahDosen() {
         return $this->belongsTo('App\Matakuliah', 'kode_dosen', 'kode_dosen');
     }
+    
 }

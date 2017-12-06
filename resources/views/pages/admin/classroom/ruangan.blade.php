@@ -145,7 +145,8 @@ div.dataTables_wrapper div.dataTables_filter input {
     var p_data = {!! $data !!};
     $(document).ready(function() {
         $('#table').DataTable({
-            responsive: true
+            responsive: true,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         });
 
         $('#kode').on('input', function() {

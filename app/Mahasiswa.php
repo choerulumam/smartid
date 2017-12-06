@@ -33,7 +33,7 @@ class Mahasiswa extends Authenticatable
         return $this->hasMany('App\Dosen', 'kode_dosen', 'kode_dosen');
     }
 
-    public function matakuliah() {
+    public function data_matakuliah() {
         return $this->hasMany('App\MatakuliahMahasiswa', 'nim', 'nim');
     }
 }

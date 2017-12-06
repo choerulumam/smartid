@@ -20,8 +20,8 @@ class CourseController extends Controller
 
     // Mahasiswa 
     public function showCourseMahasiswa(){
-    	$data = MatakuliahMahasiswa::with(['matakuliah','mahasiswa','jadwal'])->get(); 
-    	return $data->find(2);
+        $data = MatakuliahMahasiswa::with(['data_mahasiswa', 'data_matakuliah', 'data_jadwal'])->get(); 
+        return view('pages.admin.course.mahasiswa', compact('data'));      
     }
 
 

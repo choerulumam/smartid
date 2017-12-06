@@ -14,7 +14,7 @@ class Jadwal extends Model
         'hari', 'matakuliah', 'ruangan','jam_masuk', 'jam_keluar'
     ];
 
-    public function jadwal() {
-        return $this->hasMany('App\MatakuliahMahasiswa', 'id', 'id');
+    public function data_jadwal() {
+        return $this->hasMany('App\MatakuliahMahasiswa', 'jadwal', 'id');
     }
 }

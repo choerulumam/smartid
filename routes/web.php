@@ -27,6 +27,9 @@ Route::prefix('admin')->group(function() {
 	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 	Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 	Route::get('/logs', 'Admin\AdminController@log')->name('admin.log');
+	Route::prefix('attendance')->group(function(){
+		Route::get('/dosen', 'Admin\AttendanceController@dosen')->name('admin.attendance.dosen');
+	});
 	Route::prefix('/management')->group(function() {
 		Route::prefix('/mahasiswa')->group(function() {
 			Route::get('/', 'Admin\ManagementController@showDataMahasiswa')->name('admin.manage.mahasiswa');
@@ -68,10 +71,18 @@ Route::prefix('admin')->group(function() {
 
 Route::prefix('dosen')->group(function() {
 	Route::get('/', 'Dosen\DosenController@index')->name('dosen.dashboard');
+	Route::get('/course', 'Dosen\DosenController@showCourse')->name('dosen.course');
 });
 
 Route::prefix('mahasiswa')->group(function() {
 	Route::get('/', 'Mahasiswa\MahasiswaController@index')->name('mahasiswa.dashboard');
+	Route::prefix('/course')->group(function() {
+		Route::get('/', 'Mahasiswa\CourseController@index')->name('mahasiswa.course');
+	});
 });
+
+
+Route::get('test', 'Admin\AdminController@test');
+Route::post('portal', 'ExloginController@show')->name('mikrotik.show');
 
 Route::get('/home', 'HomeController@index')->name('home');

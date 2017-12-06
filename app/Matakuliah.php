@@ -17,8 +17,8 @@ class Matakuliah extends Model
     	return $this->hasMany('App\Dosen', 'kode_dosen', 'kode_dosen');
     }
 
-    public function mahasiswa() {
-    	return $this->hasMany('App\MatakuliahMahasiswa', 'kode', 'kode');
+    public function data_mahasiswa() {
+    	return $this->hasMany('App\MatakuliahMahasiswa', 'matakuliah', 'kode');
     }
     
 }

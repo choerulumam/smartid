@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Dosen;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Dosen;
+use App\Matakuliah;
+use auth;
 
 class DosenController extends Controller
 {
@@ -25,5 +28,10 @@ class DosenController extends Controller
     public function index()
     {
         return view('pages.dosen.home');
+    }
+
+    public function showCourse(){
+        $data = Matakuliah::where('kode_dosen', Auth::user()->kode_dosen)->get();
+        return view('pages.dosen.course', compact('data'));
     }
 }

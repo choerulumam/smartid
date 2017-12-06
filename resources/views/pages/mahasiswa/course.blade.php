@@ -17,53 +17,67 @@ div.dataTables_wrapper div.dataTables_filter input {
         <div>
             <ul class="breadcrumb">
                 <li><i class="fa fa-home fa-lg"></i></li>
-                <li>Admin</li>
-                {{-- <li><a href="{{ route('admin.course') }}">Course</a></li> --}}
-                <li><a href="{{ route('admin.course.mahasiswa') }}">Students</a></li>
+                <li>Mahasiswa</li>
+                <li><a href="{{ route('mahasiswa.course') }}">Course</a></li>
             </ul>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
-                        <h4>Course Views</h4>
+                        <h4>Taken Course</h4>
                     </div>
                     <table id="table" class="table table-stripped">
                         <thead>
                             <th>ID</th>
-                            <th>NIM</th>
-                            <th>NAME</th>
-                            <th>MATAKULIAH</th>
+                            <th>KODE</th>
+                            <th>MATA KULIAH</th>
                             <th>DOSEN</th>
-                            <th>RUANGAN</th>
-                            <th>HARI</th>
-                            <th>MASUK</th>
-                            <th>KELUAR</th>
-                            <th>ACTION</th>
                         </thead>
                         <tbody>
                             @foreach($data as $course)
-                            <tr class="user{{ $course->id }}">
+                            <tr>
                                 <td>{{ $course->id }}</td>
-                                <td>{{ $course->nim }}</td>
-                                <td>{{ $course->data_mahasiswa->name }}</td>
                                 <td>{{ $course->data_matakuliah->kode }}</td>
+                                <td>{{ $course->data_matakuliah->name }}</td>
                                 <td>{{ $course->data_matakuliah->kode_dosen }}</td>
-                                <td>{{ $course->data_jadwal->ruangan }}</td>
-                                <td>{{ $course->data_jadwal->hari }}</td>
-                                <td>{{ $course->data_jadwal->jam_masuk }}</td>
-                                <td>{{ $course->data_jadwal->jam_keluar }}</td>
-                                <td>
-                                    <button style="margin-right: 2px" class="edit-modal btn btn-info btn-sm" data-info="{{$course->id}},{{$course->nim}},{{$course->data_mahasiswa->name}},{{$course->data_matakuliah->kode}},{{$course->data_matakuliah->kode_dosen}},{{$course->data_jadwal->ruangan}},{{$course->data_jadwal->hari}},{{$course->data_jadwal->jam_masuk}}, {{$course->data_jadwal->jam_keluar}}, {{$course->data_matakuliah->name}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                    <button class="delete btn btn-danger btn-sm" data-info="{{$course->id}},{{$course->nim}},{{$course->data_mahasiswa->name}},{{$course->data_matakuliah->kode}},{{$course->data_matakuliah->kode_dosen}},{{$course->data_jadwal->ruangan}},{{$course->data_jadwal->hari}},{{$course->data_jadwal->jam_masuk}}, {{$course->data_jadwal->jam_keluar}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <p class="card-text">This table showing current course data</p>
+                    <p class="card-text">This table showing current taken course</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h4>Available Course</h4>
+                    </div>
+                    <table id="table2" class="table table-stripped">
+                        <thead>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>KODE</th>
+                            <th>MATA KULIAH</th>
+                            <th>DOSEN</th>
+                        </thead>
+                        <tbody>
+                            @foreach($mk as $acourse)
+                            <tr>
+                                <td><input type="checkbox" name="check"/></td>
+                                <td>{{ $acourse->id }}</td>
+                                <td>{{ $acourse->kode }}</td>
+                                <td>{{ $acourse->name }}</td>
+                                <td>{{ $acourse->kode_dosen }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <p class="card-text">This table showing current taken course</p>
                 </div>
             </div>
         </div>
@@ -124,6 +138,10 @@ div.dataTables_wrapper div.dataTables_filter input {
 <script>
     $(document).ready(function() {
         $('#table').DataTable({
+            responsive: true,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+        });
+        $('#table2').DataTable({
             responsive: true,
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         });

@@ -13,15 +13,15 @@ class MatakuliahMahasiswa extends Model
         'nim', 'matakuliah', 'jadwal'
     ];
     
-    public function mahasiswa() {
+    public function data_mahasiswa() {
     	return $this->belongsTo('App\Mahasiswa', 'nim', 'nim');
     }
 
-    public function matakuliah() {
+    public function data_matakuliah() {
      	return $this->belongsTo('App\Matakuliah', 'matakuliah', 'kode');
     }
 
-    public function jadwal() {
+    public function data_jadwal() {
     	return $this->belongsTo('App\Jadwal', 'jadwal', 'id');
     }
 
