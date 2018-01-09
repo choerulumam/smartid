@@ -9,7 +9,7 @@ class Jadwal extends Model
     protected $table = 'tbl_jadwal';
 
     public $timestamps = false;
-    
+
     protected $fillable = [
         'hari', 'matakuliah', 'ruangan','jam_masuk', 'jam_keluar'
     ];
@@ -17,4 +17,10 @@ class Jadwal extends Model
     public function data_jadwal() {
         return $this->hasMany('App\MatakuliahMahasiswa', 'jadwal', 'id');
     }
+
+    public function data_matakuliah(){
+        return $this->belongsTo('App\Matakuliah', 'matakuliah', 'kode');
+    }
+
+
 }

@@ -36,4 +36,5 @@ class Mahasiswa extends Authenticatable
     public function data_matakuliah() {
         return $this->hasMany('App\MatakuliahMahasiswa', 'nim', 'nim');
     }
+
 }

@@ -32,5 +32,15 @@ class Dosen extends Authenticatable
     public function matakuliahDosen() {
         return $this->belongsTo('App\Matakuliah', 'kode_dosen', 'kode_dosen');
     }
-    
+
+    public function get_dosen_by_nip($nip) {
+        return Dosen::where('nip', $nip)
+                        ->with('matakuliahDosen')
+                        ->first();
+    }
+
+    public function get_nip_by_kode($kode) {
+        return Dosen::where('kode_dosen', $kode)->first();
+    }
+
 }

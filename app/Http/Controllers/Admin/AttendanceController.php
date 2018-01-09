@@ -11,9 +11,10 @@ class AttendanceController extends Controller
     {
         $this->middleware('auth:admin');
     }
-    
+
     public function dosen()
     {
         return view('pages.admin.attendance.dosen');
     }
+
 }

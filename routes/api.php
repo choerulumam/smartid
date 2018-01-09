@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/portal/login', 'Admin\Api\AttendanceLoginController@get_login');
+Route::get('/portal/login/getmac', 'Admin\Api\AttendanceLoginController@check_mac');
