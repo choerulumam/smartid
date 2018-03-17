@@ -17,9 +17,9 @@ $userimage = asset('images/user.png');
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li class="active"><a href="#"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
+            <li class="{{ Route::currentRouteNamed('dosen.dashboard') ? 'active' : '' }}"><a href="{{ route('dosen.dashboard')}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
             <li><a href="#"><i class="fa fa-tags"></i><span>Attendance</span></a></li>
-            <li><a href="#"><i class="fa fa-university"></i><span>Course</span></a></li>
+            <li class="{{ Route::currentRouteNamed('dosen.course') ? 'active' : '' }}"><a href="{{ route('dosen.course') }}"><i class="fa fa-university"></i><span>Course</span></a></li>
             <li><a href="#"><i class="fa fa-user"></i><span>Profile</span></a></li>
             <li><a href="#"><i class="fa fa-calendar"></i><span>Schedules</span></a></li>
         </ul>

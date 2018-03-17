@@ -10,7 +10,7 @@ class ExloginController extends Controller
     	$error = $request->error;
     	$mac = $request->mac;
     	$ip = $request->ip;
-    	$chapid = $request->chap-id;
+    	$chapid = $request->chap->id;
     	return view('mikrotik');
     }
 }

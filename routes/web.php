@@ -76,9 +76,8 @@ Route::prefix('dosen')->group(function() {
 
 Route::prefix('mahasiswa')->group(function() {
 	Route::get('/', 'Mahasiswa\MahasiswaController@index')->name('mahasiswa.dashboard');
-	Route::prefix('/course')->group(function() {
-		Route::get('/', 'Mahasiswa\CourseController@index')->name('mahasiswa.course');
-	});
+	Route::get('/course', 'Mahasiswa\CourseController@index')->name('mahasiswa.course');
+    Route::get('/schedule', 'Mahasiswa\ScheduleController@index')->name('mahasiswa.schedule');
 });
 
 

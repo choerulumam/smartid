@@ -34,4 +34,11 @@ class MatakuliahMahasiswa extends Model
                                   ->get();
     }
 
+    public function get_data_jadwal_mahasiswa($nim)
+    {
+        return MatakuliahMahasiswa::where('nim', $nim)
+                                    ->with('data_jadwal', 'data_matakuliah')
+                                    ->get();
+    }
+
 }
