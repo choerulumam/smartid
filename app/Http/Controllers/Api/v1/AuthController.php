@@ -8,6 +8,7 @@ use Validator;
 use Illuminate\Support\Facades\File;
 use App\Token;
 use Illuminate\Http\Request;
+use App\Mahasiswa;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'getMahasiswa']]);
     }
 
     /**
@@ -106,5 +107,29 @@ class AuthController extends Controller
         File::put('plain' . '-' . date('Y-m-d H:i:s') . '.json', json_encode($request->all()));
 
         return response()->json(array('status' => 400, 'message' => 'failed'));
+    }
+
+    public function getMahasiswa()
+    {
+        $status  = 1;
+        $message = "Success";
+        $response = array();
+
+        $mahasiswa = Mahasiswa::find(1);
+        if ($mahasiswa) {
+            $response = array(
+                "status"  => $status,
+                "message" => $message,
+                'data'    => $mahasiswa
+            );
+        } else {
+            $response = array(
+                "status"  => 0,
+                "message" => "failed",
+                'data'    => $data
+            );
+        }
+
+        return response()->json($response);
     }
 }

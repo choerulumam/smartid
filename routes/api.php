@@ -26,6 +26,7 @@ Route::group([
     Route::post('refresh', 'Api\v1\AuthController@refresh');
     Route::post('me', 'Api\v1\AuthController@me');
     Route::post('register', 'Api\v1\AuthController@register');
+    Route::get('m', 'Api\v1\AuthController@getMahasiswa');
 });
 Route::post('/portal/login', 'Admin\Api\AttendanceLoginController@get_login');
 Route::get('/portal/login/getmac', 'Admin\Api\AttendanceLoginController@check_mac');
