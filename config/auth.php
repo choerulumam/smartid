@@ -11,7 +11,7 @@ return [
     | reset options for your application. You may change these defaults
     | as required, but they're a perfect start for most applications.
     |
-    */
+     */
 
     'defaults' => [
         'guard' => 'mahasiswa',
@@ -33,16 +33,11 @@ return [
     |
     | Supported: "session", "token"
     |
-    */
+     */
 
     'guards' => [
         'dosen' => [
             'driver' => 'session',
-            'provider' => 'dosen',
-        ],
-
-        'api-dosen' => [
-            'driver' => 'token',
             'provider' => 'dosen',
         ],
 
@@ -51,19 +46,14 @@ return [
             'provider' => 'mahasiswa',
         ],
 
-        'api-mahasiswa' => [
-            'driver' => 'token',
-            'provider' => 'mahasiswa',
-        ],
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'admin',
         ],
 
-        'api-admin' => [
-            'driver' => 'token',
-            'provider' => 'admin',
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
         ],
 
     ],
@@ -83,7 +73,7 @@ return [
     |
     | Supported: "database", "eloquent"
     |
-    */
+     */
 
     'providers' => [
         'admin' => [
@@ -91,15 +81,21 @@ return [
             'model' => App\Admin::class,
         ],
 
-         'dosen' => [
-             'driver' => 'eloquent',
-             'model' => App\Dosen::class,
-         ],
+        'dosen' => [
+            'driver' => 'eloquent',
+            'model' => App\Dosen::class,
+        ],
 
-         'mahasiswa' => [
-             'driver' => 'eloquent',
-             'model' => App\Mahasiswa::class,
-         ],
+        'mahasiswa' => [
+            'driver' => 'eloquent',
+            'model' => App\Mahasiswa::class,
+        ],
+
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+
     ],
 
     /*
@@ -115,24 +111,30 @@ return [
     | considered valid. This security feature keeps tokens short-lived so
     | they have less time to be guessed. You may change this as needed.
     |
-    */
+     */
 
     'passwords' => [
         'admin' => [
             'provider' => 'admin',
-            'table' => 'password_resets', 
+            'table' => 'password_resets',
             'expire' => 30,
         ],
 
         'dosen' => [
             'provider' => 'dosen',
-            'table' => 'password_resets', 
+            'table' => 'password_resets',
             'expire' => 60,
         ],
 
         'mahasiswa' => [
             'provider' => 'mahasiswa',
-            'table' => 'password_resets', 
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
             'expire' => 60,
         ],
     ],
