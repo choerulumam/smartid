@@ -32,7 +32,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = auth('api')->attempt($credentials)) {
             return response()->json([
                 'status'   => false,
                 'message'  => 'Failed Login, Please Check Your Email or Password'
@@ -59,7 +59,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -83,7 +83,7 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        $refUser = auth()->user();
+        $refUser = auth('api')->user();
         $user    = null;
         $user_group = null;
         switch ($refUser->ref_gid) {
@@ -106,7 +106,7 @@ class AuthController extends Controller
             'user_group_name' => $user_group, 
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 1440
+            'expires_in' => auth('api')->factory()->getTTL() * 1440
         ]);
     }
 
