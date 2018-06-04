@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use App\Token;
 use Illuminate\Http\Request;
 use App\Mahasiswa;
+use App\Dosen;
 
 class AuthController extends Controller
 {
@@ -32,7 +33,10 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                'status'   => false,
+                'message'  => 'Failed Login, Please Check Your Email or Password'
+            ], 401);
         }
 
         return $this->respondWithToken($token);
@@ -79,10 +83,30 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $refUser = auth()->user();
+        $user    = null;
+        $user_group = null;
+        switch ($refUser->ref_gid) {
+            case 2:
+                $user = Dosen::where('id',$refUser->ref_uid)->first();
+                $user_group = "dosen";
+                break;
+            case 3:
+                $user = Mahasiswa::where('id', $refUser->ref_uid)->first();
+                $user_group = "mahasiswa";
+                break;
+            default:
+                $user = null;
+                break;
+        }
         return response()->json([
+            'status'       => true,
+            'user'         => $user,
+            'user_group'   => $refUser->ref_gid,
+            'user_group_name' => $user_group, 
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 1440
         ]);
     }
 
