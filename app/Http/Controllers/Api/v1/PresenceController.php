@@ -32,6 +32,6 @@ class PresenceController extends Controller
                 array_push($result, $temp);
             }
         }
-        return response()->json($result);
+        return response()->json(array('schedules'=> $result));
     }
 }
